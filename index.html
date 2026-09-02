@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go-Moku</title>
+    <script src="index.js" type="module"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container"></div>
+
+    <!-- Sidebar -->
+    <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none; z-index:9999; position:fixed; top:0; left:0; height:100%;" id="mySidebar">
+        <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
+        <a href="#" class="w3-bar-item w3-button" id="how-to-play-link">How to Play</a>
+        <div class="w3-bar-item color-picker-item">
+            <label for="black-color-input">Player 1 color</label>
+            <input type="color" id="black-color-input" value="#000000">
+        </div>
+        <div class="w3-bar-item color-picker-item">
+            <label for="white-color-input">Player 2 color</label>
+            <input type="color" id="white-color-input" value="#ffffff">
+        </div>
+    </div>
+
+    <!-- Menu Button explicitly hard-pinned to Top-Left -->
+    <div style="position: fixed !important; top: 0 !important; left: 0 !important; z-index: 9998 !important; margin: 0 !important; padding: 0 !important; width: auto !important; height: auto !important; right: auto !important; bottom: auto !important; transform: none !important;">
+        <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()" style="margin: 0; display: block;">☰</button>
+    </div>
+
+    <!-- From Uiverse.io by pharmacist-sabot --> 
+    <div class="glitch-form-wrapper" id="login-wrapper">
+    <form class="glitch-card" id="login-form">
+        <div class="card-header">
+        <div class="card-title">
+            <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+            <path
+                d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"
+            ></path>
+            <path
+                d="M12 11.5a3 3 0 0 0 -3 2.824v1.176a3 3 0 0 0 6 0v-1.176a3 3 0 0 0 -3 -2.824z"
+            ></path>
+            </svg>
+            <span>Login</span>
+        </div>
+
+        <div class="card-dots"><span></span><span></span><span></span></div>
+        </div>
+
+        <div class="card-body">
+        <div class="form-group">
+            <input
+            type="text"
+            id="player1-username"
+            name="player1-username"
+            required=""
+            placeholder=""
+            />
+            <label for="player1-username" class="form-label" data-text="USERNAME"
+            >Player 1</label
+            >
+        </div>
+
+        <div class="form-group">
+            <input
+            type="text"
+            id="player2-username"
+            name="player2-username"
+            required=""
+            placeholder=""
+            />
+            <label for="player2-username" class="form-label" data-text="USERNAME"
+            >Player 2</label
+            >
+        </div>
+
+        <button data-text="INITIATE_CONNECTION" type="submit" class="submit-btn">
+            <span class="btn-text">Start/Resume game</span>
+        </button>
+        </div>
+    </form>
+    </div>
+
+    <div class="glitch-form-wrapper hidden" id="instructions-wrapper">
+        <div class="glitch-card">
+            <div class="card-header">
+                <div class="card-title"><span>How to Play</span></div>
+                <div class="card-dots"><span></span><span></span><span></span></div>
+            </div>
+            <div class="card-body">
+                <p id="instructions-text"></p>
+                <div class="instructions-nav">
+                    <button type="button" id="instructions-back" class="submit-btn">Back</button>
+                    <button type="button" id="instructions-next" class="submit-btn">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-wrapper">
+        <div id="scoreboard" class="hidden">
+            <div class="score-card black-card">
+                <h3 id="black-name-display">Player 1</h3>
+                <p id="black-stats-display">Wins: 0 | Played: 0</p>
+            </div>
+            <div class="score-card white-card">
+                <h3 id="white-name-display">Player 2</h3>
+                <p id="white-stats-display">Wins: 0 | Played: 0</p>
+            </div>
+        </div>
+        
+        <canvas id="canvas" width="360" height="450"></canvas>
+        <div class="controls">
+            <button id="undo-btn">Undo</button>
+            <button id="new-game-btn">New Game</button>
+            <button id="save-btn">Save and Close Game</button>
+        </div>
+    </div>
+
+    <!-- JavaScript to toggle sidebar visibility -->
+    <script>
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+        }
+
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+        }
+    </script>
+</body>
+</html>
